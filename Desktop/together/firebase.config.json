@@ -1,0 +1,13 @@
+{
+    "projectId": "initiative-management",
+    "appId": "1:101131758817:web:3f1bedb15105175b2edba0",
+    "storageBucket": "initiative-management.appspot.com",
+    "locationId": "us-central",
+    "apiKey": "AIzaSyBh4ZdGCU-L4eYEsBoZ0_hxuYOHy2ledHo",
+    "authDomain": "initiative-management.firebaseapp.com",
+    "messagingSenderId": "101131758817",
+    "measurementId": "G-WRFX756G5Z",
+    "location" : {
+        "hostname"  : "localhost"
+    }
+}
