@@ -1,0 +1,32 @@
+# .github/workflows/deploy-ci.yml
+name: Deploy Branch CI
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs:
+  build-and-test:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Remove existing DB
+        run: npx ts-node remove_db.ts
+
+      - name: Insert sample data
+        run: npx ts-node insert_sample_db.ts
+
+      - name: Run tests
+        run: npm test
