@@ -1,0 +1,22 @@
+.button-group {
+    display: flex;
+    align-items: center;
+    gap: 12px;  /* 按钮之间的间距 */
+}
+
+.theme-toggle {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    height: 35px;
+    transition: background-color 0.3s ease;
+    white-space: nowrap;
+}
+
+.theme-toggle:hover {
+    background-color: var(--secondary-color);
+} 

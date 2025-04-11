@@ -1,0 +1,82 @@
+name: CI Pipeline
+
+# Trigger the workflow on push to any branch and pull requests to main
+on:
+  push:
+    branches:
+      - "**" # Run on all branches
+  pull_request:
+    branches:
+      - main
+
+# Define jobs to run
+jobs:
+  # Job 1: Run Jest unit tests
+  jest-tests:
+    runs-on: self-hosted
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20" # Use the Node version your project requires
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci # Use npm ci for a clean, reproducible install
+
+      # Step 4: Run Jest tests
+      - name: Run Jest tests
+        run: npm run test # Assumes "test" script runs Jest in package.json
+
+      # Step 5: Upload test results (optional)
+      - name: Upload Jest test results
+        if: always() # Run even if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: jest-test-results
+          path: ./test-results # Adjust if Jest outputs results elsewhere
+
+  # Job 2: Run Cypress end-to-end tests
+  cypress-tests:
+    runs-on: self-hosted
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js environment
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Build the app (if required for Cypress)
+      - name: Build the app
+        run: npm run build # Adjust if your build command is different
+
+      # Step 5: Run Cypress tests
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start # Command to start your app (adjust as needed)
+          wait-on: "http://localhost:3000" # URL to wait for app to be ready
+          browser: chrome # Optional: specify browser
+
+      # Step 6: Upload Cypress artifacts (screenshots/videos on failure)
+      - name: Upload Cypress artifacts
+        if: failure() # Only run if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-artifacts
+          path: |
+            cypress/screenshots
+            cypress/videos

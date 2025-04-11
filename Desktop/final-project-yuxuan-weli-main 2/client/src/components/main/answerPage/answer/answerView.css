@@ -1,0 +1,67 @@
+/* All the CSS related to answers Page*/
+.answer {
+    display: flex;
+    gap: 20px;
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.answerText {
+    width: 75%;
+}
+
+.answerAuthor {
+    margin-left: 5%;
+}
+
+.answer_author {
+    color: green;
+}
+
+.vote-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.vote-button {
+    padding: 8px 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.vote-button:hover {
+    background-color: #f5f5f5;
+    transform: translateY(-2px);
+}
+
+.vote-button:active {
+    transform: translateY(0);
+}
+
+.answer-content {
+    flex: 1;
+}
+
+.answer-text {
+    margin: 0 0 10px 0;
+    line-height: 1.6;
+}
+
+.answer-meta {
+    display: flex;
+    gap: 20px;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.vote-error {
+    color: #dc3545;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+    text-align: right;
+}
