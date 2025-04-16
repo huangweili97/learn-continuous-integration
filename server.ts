@@ -35,8 +35,10 @@ if (process.env.NODE_ENV !== "test") {
     });
 
     // Connect to MongoDB only in non-test environments
-    const mongoDB = 'mongodb://127.0.0.1:27017/my_library_db';
+    
+    const mongoDB = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/my_library_db';
     mongoose.connect(mongoDB);
+
     const db = mongoose.connection;
 
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));

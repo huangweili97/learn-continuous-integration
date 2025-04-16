@@ -1,0 +1,32 @@
+# .github/workflows/deploy-ci.yml
+name: Deploy Branch CI
+
+on:
+  push:
+    branches:
+      - deploy
+
+jobs: 
+  setup-database:
+    runs-on: self-hosted  
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Delete old database
+        run: npm run remove-sample-data -- "mongodb://127.0.0.1:27017/my_library_db"
+
+      - name: Seed database
+        run: npm run insert-sample-data -- "mongodb://127.0.0.1:27017/my_library_db"
+
+      - name: Run Tests
+        run: npm test
